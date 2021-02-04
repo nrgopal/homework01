@@ -1,0 +1,144 @@
+{
+  "animals": [
+    {
+      "head:": "snake",
+      "body:": "tetra-liger",
+      "arms:": 10,
+      "legs:": 12,
+      "tail:": 22
+    },
+    {
+      "head:": "raven",
+      "body:": "jackal-turkey",
+      "arms:": 5,
+      "legs:": 9,
+      "tail:": 14
+    },
+    {
+      "head:": "lion",
+      "body:": "emu-dolphin",
+      "arms:": 3,
+      "legs:": 3,
+      "tail:": 6
+    },
+    {
+      "head:": "bunny",
+      "body:": "egret-stinkbug",
+      "arms:": 3,
+      "legs:": 12,
+      "tail:": 15
+    },
+    {
+      "head:": "lion",
+      "body:": "piglet-starfish",
+      "arms:": 3,
+      "legs:": 9,
+      "tail:": 12
+    },
+    {
+      "head:": "bunny",
+      "body:": "boxer-mullet",
+      "arms:": 5,
+      "legs:": 6,
+      "tail:": 11
+    },
+    {
+      "head:": "raven",
+      "body:": "tuna-lizard",
+      "arms:": 8,
+      "legs:": 9,
+      "tail:": 17
+    },
+    {
+      "head:": "raven",
+      "body:": "panther-squid",
+      "arms:": 4,
+      "legs:": 3,
+      "tail:": 7
+    },
+    {
+      "head:": "bull",
+      "body:": "martin-peacock",
+      "arms:": 3,
+      "legs:": 9,
+      "tail:": 12
+    },
+    {
+      "head:": "lion",
+      "body:": "termite-rooster",
+      "arms:": 3,
+      "legs:": 3,
+      "tail:": 6
+    },
+    {
+      "head:": "bull",
+      "body:": "bengal-treefrog",
+      "arms:": 5,
+      "legs:": 12,
+      "tail:": 17
+    },
+    {
+      "head:": "bull",
+      "body:": "lion-pangolin",
+      "arms:": 2,
+      "legs:": 6,
+      "tail:": 8
+    },
+    {
+      "head:": "raven",
+      "body:": "husky-goldfish",
+      "arms:": 5,
+      "legs:": 9,
+      "tail:": 14
+    },
+    {
+      "head:": "lion",
+      "body:": "katydid-cowbird",
+      "arms:": 9,
+      "legs:": 3,
+      "tail:": 12
+    },
+    {
+      "head:": "bull",
+      "body:": "tiger-snake",
+      "arms:": 9,
+      "legs:": 12,
+      "tail:": 21
+    },
+    {
+      "head:": "bunny",
+      "body:": "shark-possum",
+      "arms:": 9,
+      "legs:": 9,
+      "tail:": 18
+    },
+    {
+      "head:": "bunny",
+      "body:": "whippet-redfish",
+      "arms:": 3,
+      "legs:": 3,
+      "tail:": 6
+    },
+    {
+      "head:": "snake",
+      "body:": "flea-mastodon",
+      "arms:": 4,
+      "legs:": 3,
+      "tail:": 7
+    },
+    {
+      "head:": "bunny",
+      "body:": "sloth-flounder",
+      "arms:": 5,
+      "legs:": 3,
+      "tail:": 8
+    },
+    {
+      "head:": "bunny",
+      "body:": "scorpion-troll",
+      "arms:": 2,
+      "legs:": 6,
+      "tail:": 8
+    }
+  ]
+}
