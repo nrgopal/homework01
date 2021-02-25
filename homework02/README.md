@@ -16,9 +16,12 @@ Makes sure that the characteristics of the offspring match those of its parents.
 
 ## Installation
 
-### Install this project by cloning the repository, making the scripts executable, and adding them to your PATH.
+### Install this project by cloning the repository, making the scripts executable, and adding them to your PATH. 
+
 git clone https://github.com/nrgopal/nrgopal-coe332/homework02
+
 touch Dockerfile
+
 
 ### Assemble Dockerfile by adding the following:
 FROM centos:7.7.1908
