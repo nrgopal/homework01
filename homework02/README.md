@@ -1,63 +1,88 @@
 # Homework 02
 
-This purpose of this project is...
+This purpose of this project is to build upon homework 01. Two Python scripts are already written: one for generating a JSON file of assembled animals (generate_animals.py), and another for reading in and printing one animal at (read_animals.py) random.
 
+The aims in this homework are to write one new feature into the read_animals.py script, write a unit test for the new feature in read_animals.py, write a Dockerfile to containerize both scripts, and write a reasonable README.md for your repository.
+
+## Running the code
+Some new functionality has been added to the scripts.
+
+### read_animals.py
+Pick two random animals and ‘breed’ them by adding their elements to create a new offspring, which is printed to screen along with its ‘parents’
+
+### test_read_animals.py
+Unit test that checks for the new functionality in read_animals.py and is executable from the command line.
+Makes sure that the characteristics of the offspring match those of its parents.
 
 ## Installation
 
-Install this project by cloning the repository, making the scripts executable, and adding them to
-your PATH. For example:
+### Install this project by cloning the repository, making the scripts executable, and adding them to your PATH.
+git clone https://github.com/nrgopal/nrgopal-coe332/homework02
+touch Dockerfile
 
+### Assemble Dockerfile by adding the following:
+FROM centos:7.7.1908
 
-```bash
-git clone ...
-chmod ...
-...
-...
+RUN yum update -y && yum install -y python3
 
-etc
-```
+ENV LC_CTYPE=en_US.UTF-8
+ENV LANG=en_US.UTF-8
 
-## Running the Code
+RUN pip3 install petname==2.6
 
-This code has two functions: blah and blah.
+COPY generate_animals.py /code/generate_animals.py
+COPY read_animals.py /code/read_animals.py
 
-To do blah1:
+RUN chmod +rx /code/generate_animals.py && \
+    chmod +rx /code/read_animals.py
 
-```bash
-example
-```
+ENV PATH "/code:$PATH"
 
-To do blah2:
+### Update and upgrade and install required packages
+docker run --rm -it -v $PWD:/code centos:7.7.1908 /bin/bash
 
-```bash
-example
-```
+yum update
 
+yum install python3
+python3 --version
+pip3 install petname==2.6
+
+export LC_CTYPE=en_US.UTF-8
+export LANG=en_US.UTF-8
+pip3 install petname
+
+cd /code
+chmod +rx generate_animals.py
+chmod +rx read_animals.py
+chmod +rx test_read_animals.py
+export PATH=/code:$PATH
 
 ## Docker Image
 
-You can build a Docker image using the provided Dockerfile. Use the commands:
+### You can build a Docker image using the provided Dockerfile. Use the commands:
+docker build -t username/json-parser:1.0 .
 
-```bash
-git clone ...
-cd repo/
-docker build ....
-```
-
-An examples of running the scripts inside a container is:
-
-```bash
-docker run ....     # generate_animals.py
-docker run ....     # read_animals.py
-```
 
 ## Test
 
-Test XYZ aspect of code by running:
+### Test examples of executing the scripts inside a container by running:
+docker run --rm -it username/json-parser:1.0 /bin/bash
+cd /home
+generate_animals.py test.json
+ls
+read_animals.py test.json
+ls
 
-```bash
-example
-```
+### Next, exit the container and test the code non-interactively:
+docker run --rm -v $PWD:/data username/json-parser:1.0 generate_animals.py /data/animals.json
+ls -l
+
+## We can test the newly-built image interactively, we will use docker run to start a shell inside the image:
+
+rm animals.json
+docker run --rm -v $PWD:/data -u $(id -u):$(id -g) username/json-parser:1.0 generate_animals.py /data/animals.json
+ls -l
+
+docker run --rm -v $PWD:/data username/json-parser:1.0 read_animals.py /data/animals.json
 
 
