@@ -1,6 +1,5 @@
 import json
-from flask import flask, request
-
+from flask import Flask, request                                                                                                                                                                                   
 app = Flask(__name__)
 
 def getdata():
@@ -14,25 +13,16 @@ def get_animals():
     animals = getdata()
     return animals
 
-@app.route('/animals/head/<string:head_id>', methods=['GET'])
+@app.route('/animals/head', methods=['GET'])
 def get_bunny_heads():
-    animals = getdata()
-    bunny_heads = []
-    for i in animals:
-        if (i['head:'] == head):
-            bunny_heads.append(i)
+    animals = getdata()                                                                                                                                                                                                head = request.args.get('head')
+    return json.dumps([x for x in animals if x['head'] == head]) 
 
-    return jsonify(bunny_heads)
-
-@app.route('/animals/legs/<int:leg_input>', methods=['GET'])
+@app.route('/animals/legs', methods=['GET'])
 def get_six_legs():
     animals = getdata()
-    leg_list = []
-    for i in animals:
-        if (i['legs'] == leg_input):
-            leg_list.append(i)
-
-    return jsonify(leg_list)
+    legs = int(request.args.get('legs')
+    return json.dumps([x for x in animals if x['legs'] == legs)
 
 if __name__ == '__main__':
-    app.run(debug = True, host = '0.0.0.0')
+    app.run(debug = True, host = '0.0.0.0') 
