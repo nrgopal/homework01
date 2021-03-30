@@ -1,0 +1,17 @@
+version: '3'
+services:
+     web:
+        build: .
+        container_name: main_web
+        ports:
+           - 5001:5000
+        volumes:
+           - ./data/data_file.json:/datafile.json
+    redis:
+        image: redis:latest
+        ports:
+           - 6390:6379
+        volumes:
+           - ./config/redis.conf:/redis.conf
+           - ./mydata/:/data
+        command: [ "redis-server", "/redis.conf" ]
