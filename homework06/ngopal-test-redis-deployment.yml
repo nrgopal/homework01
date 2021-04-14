@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngopal-test-redis-deployment
+  labels:
+    app: ngopal-test-redis
+    username: ngopal
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngopal-test-redis
+  template:
+    metadata:
+      labels:
+        app: ngopal-test-redis
+        username: ngopal
+        env: test
+    spec:
+      containers:
+        - name: hellos
+          imagePullPolicy: Always
+          image: redis:5.0.0
+          volumeMounts:
+          - name: hello-ngopal-data
+            mountPath: "/data"
+      volumes:
+      - name: hello-ngopal-data
+        persistentVolumeClaim:
+          claimName: ngopal-test-pvc
