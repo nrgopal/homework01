@@ -3,8 +3,18 @@
 ## Step 1:
 
 '''
+
 hi
+
 '''
+
+
+Some basic Git commands are:
+```
+git status
+git add
+git commit
+```
 
 ### read_animals.py
 Pick two random animals and ‘breed’ them by adding their elements to create a new offspring, which is printed to screen along with its ‘parents’
