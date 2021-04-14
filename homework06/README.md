@@ -1,11 +1,10 @@
-# Homework 02
+# Homework 06
 
-This purpose of this project is to build upon homework 01. Two Python scripts are already written: one for generating a JSON file of assembled animals (generate_animals.py), and another for reading in and printing one animal at (read_animals.py) random.
+## Step 1:
 
-The aims in this homework are to write one new feature into the read_animals.py script, write a unit test for the new feature in read_animals.py, write a Dockerfile to containerize both scripts, and write a reasonable README.md for your repository.
-
-## Running the code
-Some new functionality has been added to the scripts.
+'''
+hi
+'''
 
 ### read_animals.py
 Pick two random animals and ‘breed’ them by adding their elements to create a new offspring, which is printed to screen along with its ‘parents’
