@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngopal-test-flask-deployment
+  labels:
+    app: ngopal-test-flask
+    username: ngopal
+    env: test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ngopal-test-flask
+  template:
+    metadata:
+      labels:
+        app: ngopal-test-flask
+        username: ngopal
+        env: test
+    spec:
+      containers:
+        - name: helloflask
+          imagePullPolicy: Always
+          image: ngopal/flask-animals
+          env:
+          - name: FLASK_APP
+            value: "app.py"
+          ports:
+          - name: http
+            containerPort: 5000
