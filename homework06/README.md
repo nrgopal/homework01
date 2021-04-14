@@ -1,98 +1,41 @@
 # Homework 06
 
-## Step 1:
+## Step 1: Create a persistent volume claim for your Redis data.
+I did the following when writing the PVC:
+- Added a username label and an env label. The value for username is my tacc username and the value for env should be test, to indicate that this is the test environment.
+- The accessModes should include a single entry, readWriteOnce.
+- The storageClassName should be rbd.
+- Request 1 GB (1Gi) of storage.
 
-'''
-
-hi
-
-'''
-
-
-Some basic Git commands are:
+To create the redis PVC:
 ```
-git status
-git add
-git commit
+$ kubectl apply -f ngopal-test-redis-pvc.yml
 ```
 
-### read_animals.py
-Pick two random animals and ‘breed’ them by adding their elements to create a new offspring, which is printed to screen along with its ‘parents’
+### Step 2: Create a deployment for the Redis database.
+I did the following when writing the deployment: 
+- Added the same username and env labels for both the deployment and the pod template.
+- Set replicas: 1 as Redis is a stateful application.
+- For the image, I used redis:5.0.0; did not set a command.
+- Added the username and env lables to the pod as well.
+- Added an app label with value ngopal-test-redis.
+- Defined volumeMount and associate it with a volume that is filled by the PVC created in Step 1. For the mount path, use /data, as this is where Redis writes its data.
 
-### test_read_animals.py
-Unit test that checks for the new functionality in read_animals.py and is executable from the command line.
-Makes sure that the characteristics of the offspring match those of its parents.
+To create the redis deployment:
+```
+$ kubectl apply -f ngopal-test-redis-deployment.yml
+```
 
-## Installation
+### Step 3: Create a service for the Redis database.
+I did the following when writing the deployment: 
+- Added the same username and env labels for both the deployment and the pod template.
+- Set replicas: 1 as Redis is a stateful application.
+- For the image, I used redis:5.0.0; did not set a command.
+- Added the username and env lables to the pod as well.
+- Added an app label with value ngopal-test-redis.
+- Defined volumeMount and associate it with a volume that is filled by the PVC created in Step 1. For the mount path, use /data, as this is where Redis writes its data.
 
-### Install this project by cloning the repository, making the scripts executable, and adding them to your PATH: 
-
-git clone https://github.com/nrgopal/nrgopal-coe332/homework02
-
-touch Dockerfile
-
-
-### Assemble Dockerfile by adding the following:
-FROM centos:7.7.1908
-
-RUN yum update -y && yum install -y python3
-
-ENV LC_CTYPE=en_US.UTF-8
-ENV LANG=en_US.UTF-8
-
-RUN pip3 install petname==2.6
-
-COPY generate_animals.py /code/generate_animals.py
-COPY read_animals.py /code/read_animals.py
-
-RUN chmod +rx /code/generate_animals.py && \
-    chmod +rx /code/read_animals.py
-
-ENV PATH "/code:$PATH"
-
-### Update and upgrade and install required packages:
-docker run --rm -it -v $PWD:/code centos:7.7.1908 /bin/bash
-
-yum update
-
-yum install python3
-python3 --version
-pip3 install petname==2.6
-
-export LC_CTYPE=en_US.UTF-8
-export LANG=en_US.UTF-8
-pip3 install petname
-
-cd /code
-chmod +rx generate_animals.py
-chmod +rx read_animals.py
-chmod +rx test_read_animals.py
-export PATH=/code:$PATH
-
-## Docker Image
-
-### You can build a Docker image using the provided Dockerfile. Use the commands:
-docker build -t username/json-parser:1.0 .
-
-
-## Test
-
-### Test examples of executing the scripts inside a container by running:
-docker run --rm -it username/json-parser:1.0 /bin/bash
-cd /home
-generate_animals.py test.json
-ls
-read_animals.py test.json
-ls
-
-### Next, exit the container and test the code non-interactively:
-docker run --rm -v $PWD:/data username/json-parser:1.0 generate_animals.py /data/animals.json
-ls -l
-
-## We can test the newly-built image interactively, we will use docker run to start a shell inside the image:
-
-rm animals.json
-docker run --rm -v $PWD:/data -u $(id -u):$(id -g) username/json-parser:1.0 generate_animals.py /data/animals.json
-ls -l
-
-docker run --rm -v $PWD:/data username/json-parser:1.0 read_animals.py /data/animals.json
+To create the redis deployment:
+```
+$ kubectl apply -f ngopal-test-redis-deployment.yml
+```
