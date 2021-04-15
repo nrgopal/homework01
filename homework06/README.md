@@ -1,5 +1,5 @@
 # Homework 06
-In this homework we are deploying our Flask API to k8s. Our goal today is to create a “test” environment for our Flask API application.
+In this homework we are deploying our Flask API to k8s. Our goal is to create a “test” environment for our Flask API application.
 In each step I created a k8s object described in a separate yml file.
 
 ## Step 1: Create a persistent volume claim for your Redis data.
