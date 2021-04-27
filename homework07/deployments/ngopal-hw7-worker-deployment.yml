@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngopal-hw7-worker-deployment
+  labels:
+    app: ngopal-hw7-worker
+    username: ngopal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ngopal-hw7-worker
+  template:
+    metadata:
+      labels:
+        app: ngopal-hw7-worker
+        username: ngopal
+    spec:
+      containers:
+        - name: ngopal-hw7-worker
+          imagePullPolicy: Always
+          image: ngopal-hw7-image
+          command: ['python', 'worker.py']
+          env:
+          - name: WORKER_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: REDIS_IP
+            value: 10.107.124.53
