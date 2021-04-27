@@ -1,141 +1,44 @@
-# Homework 06
-In this homework we are deploying our Flask API to k8s. Our goal is to create a “test” environment for our Flask API application.
-In each step I created a k8s object described in a separate yml file.
+# Homework 07
+This homework assignment builds on the exercises done in class in the Messaging Systems section as well as the Week 12 material for deploying a worker to k8s. At the end of those exercises, we ended up with three files, api.py, worker.py and jobs.py.
 
-## Step 1: Create a persistent volume claim for your Redis data.
-I did the following when writing the PVC:
-- Added a username label and an env label. The value for username is my tacc username and the value for env should be test, to indicate that this is the test environment.
-- The accessModes should include a single entry, readWriteOnce.
-- The storageClassName should be rbd.
-- Request 1 GB (1Gi) of storage.
+### A.
+In the first in-class exercise from Week 12, we updated the Dockerfile for the flask application to include the new source code files in the Docker image and to include an entrypoint and a command that could be used for running both the flask web server and the worker.
 
-To create the redis PVC:
+I did the following:
+- Update the code to use the IP address of the test Redis service. Be sure to 
+- Built the Docker image and pushed it to the Docker Hub:
 ```
-$ kubectl apply -f ngopal-test-redis-pvc.yml
+$ # build and push code
 ```
-
-### Step 2: Create a deployment for the Redis database.
-I did the following when writing the deployment: 
-- Added the same username and env labels for both the deployment and the pod template.
-- Set replicas: 1 as Redis is a stateful application.
-- For the image, I used redis:5.0.0; did not set a command.
-- Added the username and env lables to the pod as well.
-- Added an app label with value ngopal-test-redis.
-- Defined volumeMount and associate it with a volume that is filled by the PVC created in Step 1. For the mount path, use /data, as this is where Redis writes its data.
-
-To create the redis deployment:
+- Create a deployment for the flask API and a separate deployment for the worker:
 ```
-$ kubectl apply -f ngopal-test-redis-deployment.yml
+$ kubectl apply -f ngopal-hw7-worker-deployment.yml
+$ kubectl apply -f ngopal-hw7-flask-deployment.yml
+```
+- Verified that the flask API and worker are working properly: in a python debug container, create some jobs by making a POST request with curl to to flask API. Confirm that the jobs go to “complete” status by checking the Redis database in a Python shell:
+```
+$ #The curl statements used and the responses (output) returned by your flask APi (these should include job id’s).
+$ #The Python statements (code) you issued to check the status of the jobs and the output from the statements.
 ```
 
-### Step 3: Create a service for the Redis database.
-I did the following when writing the service: 
-- Added the same username and env labels for both the deployment and the pod template.
-- Made the type of service ClusterIP.
-- Defined a selector that will elect only these Redis pods.
-- Added port and targetPort that match the Redis port.
 
-To create the redis service:
+### B.
+- Update the worker deployment to pass the worker’s IP address in as an environment variable, WORKER_IP:
 ```
-$ kubectl apply -f ngopal-test-redis-service.yml
+env:
+  - name: WORKER_IP
+    valueFrom:
+      fieldRef:
+        fieldPath: status.podIP
 ```
+- Update jobs.py and/or worker.py so that when the job status is updated to in progress, the worker’s IP address is saved as new key in the job record saved in Redis. The key can be called worker and its value should be the worker’s IP address as a string:
 
-### Step 4: Create a deployment for the flask API.
-I did the following when writing the deployment: 
-- Added the same username and env labels for both the deployment and the pod template.
-- Start 2 replicas of your flask API pod.
-- Expose port 5000.
 
-To create the flask deployment:
-```
-$ kubectl apply -f ngopal-test-flask-deployment.yml
-```
+### C.
+Scale the worker deployment to 2 pods. In a python shell from within the python debug container, create 10 more jobs by making POST requests using curl to the flask API. Verify that the jobs go to “complete” status by checking the Redis database in a Python shell. Also, note which worker worked each job.
 
-### Step 5: Create a service for the flask API, with a persistent IP address to use to talk to the flask API, regardless of the IPs that may be assigned to individual flask API pods.
-I did the following when writing the service: 
-- Added the same username and env labels for both the deployment and the pod template.
-- Made the type of service ClusterIP.
-- Defined a selector that will select only these flask API pods.
-- Added port and targetPort that match the flask port.
+- The curl statements used and the responses (output) returned by your flask APi (these should include job id’s).
 
-To create the redis service:
-```
-$ kubectl apply -f ngopal-test-flask-service.yml
-```
+- The Python statement (code) you issued to check the status of the job and the output from the statement.
 
-### Check the work done in Steps 1-3.
-Create a “debug” deployment:
-```
-$ kubectl apply -f deployment-python-debug.yml
-```
-
-Look up the service IP address for the test redis service:
-```
-$ kubectl get services
-```
-
-Look up the service IP address for the test redis service:
-```
-$ kubectl get services
-```
-
-Determine the pod name of the python debug deployment:
-```
-$ kubectl get pods
-```
-
-Exec into a Python debug container:
-```
-$ kubectl exec -it py-debug-deployment-<##########>-<#####> -- /bin/bash
-```
-
-Install the redis python library:
-```
-$ pip3 install --user redis
-```
-
-Launch the python shell:
-```
-$ python3
-```
-
-Import redis:
-```
->>> import redis
-```
-
-Create a Python redis client object using the IP and port of the service:
-```
->>> rd = redis.StrictRedis(host='##.###.###.###', port=6379, db=0)
-```
-
-Create a key and make sure you can get the key:
-```
->>> rd.set('name', '<insert name>')
-```
-
-In another shell on isp02, delete the redis pod. Check that k8s creates a new redis pod:
-```
-$ kubectl delete pods ngopal-test-redis-deployment-#########-#####
-$ kubectl get pods
-```
-
-Back in your python shell, check that you can still get the key using the same IP:
-```
->>> rd.get('name')
-```
-This will show that your service is working and that your Redis database is persisting data to the PVC (i.e., the data are surviving pod restarts).
-
-### Updating the Flask API to use the Redis Service IP
-In our app.py we need to pass the Redis IP as an environment variable to our service. Environment variables are variables that get set in the shell and are available for programs. In python, the os.environ dictionary contains a key for every variable.
-
-Add the following to the app.py:
-```
-import os
-
-redis_ip = os.environ.get('REDIS_IP')
-if not redis_ip:
-    raise Exception()
-rd=redis.StrictRedis(host=redis_ip, port=6379, db=0)
-```
-This way, if we set an environment variable called REDIS_IP to our Redis service IP before starting our API, the flask code will automatically pick it up and use it.
+- How many jobs were worked by each worker?
