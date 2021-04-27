@@ -8,7 +8,10 @@ I did the following:
 - Update the code to use the IP address of the test Redis service. Be sure to 
 - Built the Docker image and pushed it to the Docker Hub:
 ```
-$ # build and push code
+$ docker build -t ngopal/hw7:latest .
+$ docker run --rm -it ngopal/hw7:latest /bin/bash
+$ docker login
+$ docker push ngopal/hw7:latest
 ```
 - Create a deployment for the flask API and a separate deployment for the worker:
 ```
@@ -17,8 +20,7 @@ $ kubectl apply -f ngopal-hw7-flask-deployment.yml
 ```
 - Verified that the flask API and worker are working properly: in a python debug container, create some jobs by making a POST request with curl to to flask API. Confirm that the jobs go to “complete” status by checking the Redis database in a Python shell:
 ```
-$ #The curl statements used and the responses (output) returned by your flask APi (these should include job id’s).
-$ #The Python statements (code) you issued to check the status of the jobs and the output from the statements.
+$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53/jobs
 ```
 
 
