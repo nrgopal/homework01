@@ -20,7 +20,7 @@ $ kubectl apply -f ngopal-hw7-flask-deployment.yml
 ```
 - Verified that the flask API and worker are working properly: in a python debug container, create some jobs by making a POST request with curl to to flask API. Confirm that the jobs go to “complete” status by checking the Redis database in a Python shell:
 ```
-$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53/jobs
+$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53:5000/jobs
 ```
 
 
@@ -42,10 +42,13 @@ if(new_status == 'in progress'):
 ```
 
 ### C.
-Scale the worker deployment to 2 pods. In a python shell from within the python debug container, create 10 more jobs by making POST requests using curl to the flask API. Verify that the jobs go to “complete” status by checking the Redis database in a Python shell. Also, note which worker worked each job.
+- Scale the worker deployment to 2 pods. In a python shell from within the python debug container, create 10 more jobs by making POST requests using curl to the flask API. Verify that the jobs go to “complete” status by checking the Redis database in a Python shell. Also, note which worker worked each job.
+```
+$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53:5000/jobs
+```
 
-- The curl statements used and the responses (output) returned by your flask APi (these should include job id’s).
-
-- The Python statement (code) you issued to check the status of the job and the output from the statement.
-
-- How many jobs were worked by each worker?
+- The Python statement (code) you issued to check the status of the job and the output from the statement:
+```
+>>>   print(key)
+>>>   rd.hget(key, 'worker')
+```
