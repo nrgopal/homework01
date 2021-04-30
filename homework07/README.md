@@ -34,7 +34,12 @@ env:
         fieldPath: status.podIP
 ```
 - Update jobs.py and/or worker.py so that when the job status is updated to in progress, the worker’s IP address is saved as new key in the job record saved in Redis. The key can be called worker and its value should be the worker’s IP address as a string:
-
+```
+if(new_status == 'in progress'):
+        worker_IP = os.environ.get('WORKER_IP')
+        print(worker_IP)
+        rd.hset(_generate_job_key(jid), 'worker', worker_IP)
+```
 
 ### C.
 Scale the worker deployment to 2 pods. In a python shell from within the python debug container, create 10 more jobs by making POST requests using curl to the flask API. Verify that the jobs go to “complete” status by checking the Redis database in a Python shell. Also, note which worker worked each job.
