@@ -47,6 +47,12 @@ def add_job(start, end, status="submitted"):
     """Update the status of job with job id `jid` to status `status`."""
     jid, status, start, end = rd.hmget(generate_job_key(jid), 'id', 'status', 'start', 'end')
     job = _instantiate_job(jid, status, start, end)
+    
+    if(new_status == 'in progress'):
+        worker_IP = os.environ.get('WORKER_IP')
+        print(worker_IP)
+        rd.hset(_generate_job_key(jid), 'worker', worker_IP)
+        
     if job:
         job['status'] = status
         _save_job(_generate_job_key(jid), job)
