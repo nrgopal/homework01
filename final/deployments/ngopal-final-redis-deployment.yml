@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-pvc-deployment-final
+  labels:
+    username: ngopal
+    env: test
+    app: ngopal-final-redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngopal-final-redis
+  template:
+    metadata:
+      labels:
+        app: ngopal-final-redis
+    spec:
+      containers:
+        - name: redis-container
+          image: redis:5.0.0
+          volumeMounts:
+          - name: redis-ngopal-final
+            mountPath: "/data"
+      volumes:
+      - name: redis-ngopal-hw7
+        persistentVolumeClaim:
+          claimName: redis-ngopal-final
