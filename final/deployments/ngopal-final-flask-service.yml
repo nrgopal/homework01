@@ -1,0 +1,14 @@
+kind: Service
+metadata:
+  name: ngopal-final-flask-service
+  labels:
+    username: ngopal
+    env: test
+spec:
+  type: ClusterIP
+  selector:
+    app: ngopal-final-flask
+  ports:
+  - name: ngopal-flask
+    port: 5000
+    targetPort: 5000
