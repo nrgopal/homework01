@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngopal-final-worker-deployment
+  labels:
+    app: ngopal-final-worker
+    username: ngopal
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ngopal-final-worker
+  template:
+    metadata:
+      labels:
+        app: ngopal-final-worker
+        username: ngopal
+        env: test
+    spec:
+      containers:
+        - name: ngopal-final-worker
+          imagePullPolicy: Always
+          image: nrgopal/final:latest
+          env:
+            - name: "WORKER_IP"
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: WORKER
+              value: "worker.py"
+          ports:
+          - name: http
+            containerPort: 5000
