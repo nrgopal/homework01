@@ -6,7 +6,7 @@ metadata:
     app: ngopal-final-worker
     username: ngopal
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: ngopal-final-worker
