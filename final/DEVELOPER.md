@@ -5,7 +5,7 @@ $ kubectl get pods -o wide
 ```
 - Exec into the flask deployment pod to curl the CRUD routes and test the functionality of the system:
 ```
-$ kubectl exec -it ngopal-final-flask-deployment-<insert flask deployment pod name> -- /bin/bash
+$ kubectl exec -it ngopal-final-flask-deployment-<flask deployment pod name> -- /bin/bash
 ```
 - To create a complaint/job entry, use the following curl statement:
 ```
@@ -13,7 +13,7 @@ curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1", "TYPEOF
 ```
 - To delete a complaint/job entry, use the following curl statement:
 ```
-curl <flask deployment pod IP>:5000/delete?jobid='<insert jobid>'
+curl <flask deployment pod IP>:5000/delete?jobid=<jobid>
 ```
 - To display all CRUD job entries, use the following curl statement:
 ```
