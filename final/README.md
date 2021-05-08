@@ -23,13 +23,13 @@ $ kubectl exec -it ngopal-final-flask-deployment-<insert flask deployment pod na
 ```
 - To create a complaint/job entry, use the following curl statement:
 ```
-curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1-demo", "TYPEOFBUSINESS": "Bar", "TYPEOFCOMPLAINT": "Face Covering Non-Compliance - Business", "OPENDATE": "2021-05-07", "CLOSEDATE": "2021-05-07", "OUTCOME": "No Violation(s) Found/Inspection Performed", "ADDRESS": "13435 N 183 HWY NB", "LATITUDE": "-88.448709", "LONGITUDE": "24.923983" }' 10.244.##.###:5000/create
+curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1", "TYPEOFBUSINESS": "Bar", "TYPEOFCOMPLAINT": "Face Covering Non-Compliance - Business", "OPENDATE": "2021-05-03", "CLOSEDATE": "2021-05-03", "OUTCOME": "No Violation(s) Found/Inspection Performed", "LATITUDE": "-88.448709", "LONGITUDE": "24.923983" }' <flask deployment pod IP>:5000/create
 ```
 - To delete a complaint/job entry, use the following curl statement:
 ```
-curl 10.244.##.###:5000/delete?jobid='<insert jobid>'
+curl <flask deployment pod IP>:5000/delete?jobid='<insert jobid>'
 ```
 - To display all CRUD job entries, use the following curl statement:
 ```
-curl 10.244.##.###:5000/jobsubmits
+curl <flask deployment pod IP>:5000/jobsubmits
 ```
