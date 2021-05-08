@@ -2,19 +2,11 @@
 This final project works with Austin COVID-19 Complaints from the past 6 months.
 The final project consists of building a REST API frontend to a time series database that allows for basic CRUD - Create, Read, Update, Delete - operations and also allows users to submit an analysis job of building a graph from the dataset.
 
+The project includes two separate pieces of documentation: 
+- DEPLOYMENT.md provides instructions for deploying the system
+- DEVELOPER.md is geared towards users/developers who interact with the system
 
-### A. 
-- Build the Docker image and push it to the Docker Hub using the Makefile:
 
-```
-$ make build-final
-```
-- Create deployments for the flask API, flask service, and the worker:
-```
-$ kubectl apply -f ngopal-final-flask-deployment.yml
-$ kubectl apply -f ngopal-final-flask-service.yml
-$ kubectl apply -f ngopal-final-worker-deployment.yml
-```
 - Copy the flask deployment pod name and IP address for the next steps.
 ```
 $ kubectl get pods -o wide
