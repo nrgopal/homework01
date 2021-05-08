@@ -13,13 +13,13 @@ $ kubectl apply -f ngopal-final-flask-deployment.yml
 $ kubectl apply -f ngopal-final-flask-service.yml
 $ kubectl apply -f ngopal-final-worker-deployment.yml
 ```
-- Copy the flask deployment pod IP for the next steps.
+- Copy the flask deployment pod name and IP address for the next steps.
 ```
 $ kubectl get pods -o wide
 ```
 - Exec into the flask deployment pod to curl the CRUD routes and test the functionality of the system:
 ```
-$ kubectl exec -it nrgopal-final-flask-deployment-<insert flask deployment pod IP> -- /bin/bash
+$ kubectl exec -it ngopal-final-flask-deployment-<insert flask deployment pod name> -- /bin/bash
 ```
 - To create a complaint/job entry, use the following curl statement:
 ```
