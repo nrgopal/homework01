@@ -13,7 +13,7 @@ $ kubectl apply -f ngopal-final-redis-deployment.yml
 ```
 
 - Navigate to final/deployments
-- Create deployments for the flask API, flask service, and the worker:
+- Create deployments for the flask API, flask service, and a separate worker deployment:
 ```
 $ kubectl apply -f ngopal-final-flask-deployment.yml
 $ kubectl apply -f ngopal-final-flask-service.yml
