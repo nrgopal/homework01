@@ -1,4 +1,4 @@
-### These were attempted routes to edit the local dataset post submitting CRUD jobs.
+### These were attempted routes to edit and analyze the local dataset post submitting CRUD jobs.
 
 import json
 from flask import Flask, request
