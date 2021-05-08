@@ -67,3 +67,12 @@ ls
 ```
 output.png
 ```
+* see final/source/output.png for the image
+
+- Complaints related to face masks are indicated by blue dots
+- Complaints related to social distancing are indicated by blue dots
+- Complaints related to eviction are indicated by green dots
+- Complaints tagged by other descriptions are indicated by yellow dots
+
+Upon comparison with maps of Austin, it is apparent that most of the complaint cases are cited in downtown, which makes sense. 
+The vast majority of the cases are made up of face mask covering non-compliance or social distancing citations.
