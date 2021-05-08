@@ -20,7 +20,9 @@ spec:
       containers:
         - name: ngopal-final-flask
           imagePullPolicy: Always
+          image: nrgopal/final:latest
           command: ["python", "api.py"]
+          #command: ['sleep', '999999']
           env:
           - name: FLASK_APP
             value: "api.py"
