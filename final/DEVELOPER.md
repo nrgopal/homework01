@@ -9,7 +9,7 @@ $ kubectl exec -it ngopal-final-flask-deployment-<insert flask deployment pod na
 ```
 - To create a complaint/job entry, use the following curl statement:
 ```
-curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1", "TYPEOFBUSINESS": "Bar", "TYPEOFCOMPLAINT": "Face Covering Non-Compliance", "OPENDATE": "2021-05-03", "CLOSEDATE": "2021-05-03", "OUTCOME": "No Violation(s) Found", "LATITUDE": "-88.448709", "LONGITUDE": "24.923983" }' <flask deployment pod IP>/create
+curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1", "TYPEOFBUSINESS": "Bar", "TYPEOFCOMPLAINT": "Face Covering Non-Compliance", "OPENDATE": "2021-05-03", "CLOSEDATE": "2021-05-03", "OUTCOME": "No Violation(s) Found", "LATITUDE": "-88.448709", "LONGITUDE": "24.923983" }' <flask deployment pod IP>:5000/create
 ```
 - To delete a complaint/job entry, use the following curl statement:
 ```
