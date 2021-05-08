@@ -1,49 +1,31 @@
 # FINAL
-This final project works with real Austin COVID-19 Complaints from the past 6 months.
+This final project works with Austin COVID-19 Complaints from the past 6 months.
 
 ### A. 
-- Built the Docker image and pushed it to the Docker Hub:
+- Build the Docker image and push it to the Docker Hub using the Makefile:
 
 ```
 $ make build-final
 ```
-- Create a deployment for the flask API and a separate deployment for the worker:
+- Create deployments for the flask API, flask service, and the worker:
 ```
-$ kubectl apply -f ngopal-hw7-worker-deployment.yml
-$ kubectl apply -f ngopal-hw7-flask-deployment.yml
+$ kubectl apply -f ngopal-final-flask-deployment.yml
+$ kubectl apply -f ngopal-final-flask-service.yml
+$ kubectl apply -f ngopal-final-worker-deployment.yml
 ```
-- Verified that the flask API and worker are working properly: in a python debug container, create some jobs by making a POST request with curl to to flask API. Confirm that the jobs go to “complete” status by checking the Redis database in a Python shell:
+- Exec into the flask deployment pod to curl the CRUD routes and test the functionality of the system:
 ```
-$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53:5000/jobs
+$ kubectl exec -it nrgopal-final-flask-deployment-### -- /bin/bash
 ```
-
-
-### B.
-- Update the worker deployment to pass the worker’s IP address in as an environment variable, WORKER_IP:
+- To create a complaint/job entry, use the following curl statement:
 ```
-env:
-  - name: WORKER_IP
-    valueFrom:
-      fieldRef:
-        fieldPath: status.podIP
+curl -X POST -H "content-type: application/json" -d '{"CASENUMBER": "1-demo", "TYPEOFBUSINESS": "Bar", "TYPEOFCOMPLAINT": "Face Covering Non-Compliance - Business", "OPENDATE": "2021-05-07", "CLOSEDATE": "2021-05-07", "OUTCOME": "No Violation(s) Found/Inspection Performed", "ADDRESS": "13435 N 183 HWY NB", "LATITUDE": "-88.448709", "LONGITUDE": "24.923983" }' ###:5000/create
 ```
-- Update jobs.py and/or worker.py so that when the job status is updated to in progress, the worker’s IP address is saved as new key in the job record saved in Redis. The key can be called worker and its value should be the worker’s IP address as a string:
+- To delete a complaint/job entry, use the following curl statement:
 ```
-if(new_status == 'in progress'):
-        worker_IP = os.environ.get('WORKER_IP')
-        print(worker_IP)
-        rd.hset(_generate_job_key(jid), 'worker', worker_IP)
+curl ###:5000/delete?jobid='######'
 ```
-
-### C.
-- Scale the worker deployment to 2 pods. In a python shell from within the python debug container, create 10 more jobs by making POST requests using curl to the flask API. Verify that the jobs go to “complete” status by checking the Redis database in a Python shell. Also, note which worker worked each job.
+- To display all CRUD job entries, use the following curl statement:
 ```
-$ curl -X POST -H "content-type: application/json" -d '{"start": "START", "end":"END"}' 10.107.124.53:5000/jobs
+curl ###:5000/jobsubmits'
 ```
-
-- The Python statement (code) you issued to check the status of the job and the output from the statement:
-```
->>>   print(key)
->>>   rd.hget(key, 'worker')
-```
-
