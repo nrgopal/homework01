@@ -9,6 +9,6 @@ This dataset displays information on COVID-19 complaints which Austin Code has r
 
 Each entry in the dataset represents an individual complaint.
 
-The project includes two separate pieces of documentation: 
+The project includes two separate pieces of documentation (located in final/docs): 
 - DEPLOYMENT.md provides instructions for deploying the system
 - DEVELOPER.md is geared towards users/developers who interact with the system
