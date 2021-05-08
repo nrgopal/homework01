@@ -1,10 +1,9 @@
 import json
-from flask import Flask, request
+from flask import Flask, request, send_file
 import jobs
 import requests
 import pandas as pd
 import redis
-from tabulate import tabulate
 import os
 
 app = Flask(__name__)
@@ -62,6 +61,13 @@ def delete_job():
 
     rd.delete(jobs._generate_job_key(jobid))
     return 'Deleted complaint! (CASENUMBER: ' + casenumber + ', JOBID: ' + jobid + ')'
+
+@app.route('/download/<jobid>', methods=['GET'])
+def download(jobid):
+    path = f'/app/{jobid}.png'
+    with open(path, 'wb') as f:
+        f.write(rd.hget(jobid, 'image'))
+    return send_file(path, mimetype='image/png', as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0')
