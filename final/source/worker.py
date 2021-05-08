@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import redis
 
-rd = redis.StrictRedis(host='172.17.0.1', port=6379, db=0)
+rd = redis.StrictRedis(host='10.97.252.127', port=6379, db=0)
 
 @q.worker
 def execute_job(jobid):
