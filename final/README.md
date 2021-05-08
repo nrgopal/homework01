@@ -23,7 +23,8 @@ Front-end API - A set of synchronous API endpoints providing the following funct
 B.
 Back-end workers - Backend/worker processes to work the submitted jobs:
 - Worker processes framework.
-- Analysis job: using the Latitude and Longitude of each complaint, a scatterplot is generated to show a map of all case locations, color coded by complaint types. Refer to   
+- Analysis job: 
+Using the Latitude and Longitude of each complaint, a scatterplot is generated to show a map of all case locations, color coded by complaint types. Refer to   
 final/source/output.png and final/source/worker.py for details of the analysis.
 
 C.
