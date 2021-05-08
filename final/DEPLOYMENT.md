@@ -3,6 +3,16 @@
 ```
 $ make build-final
 ```
+
+- Navigate to final/deployments
+- Create deployments for the redis PVC, service, and deployment:
+```
+$ kubectl apply -f ngopal-final-redis-pvc.yml
+$ kubectl apply -f ngopal-final-redis-service.yml
+$ kubectl apply -f ngopal-final-redis-deployment.yml
+```
+
+- Navigate to final/deployments
 - Create deployments for the flask API, flask service, and the worker:
 ```
 $ kubectl apply -f ngopal-final-flask-deployment.yml
