@@ -52,3 +52,18 @@ curl 10.244.13.216:5000/jobsubmits
 |---:|-------------:|:------------|:-------------------------------------|-----------:|------------:|:-----------|:----------------------|:------------|:-----------------|:-----------------------------|
 |  0 |            1 | 2021-05-03  | f5a33325-4b01-4278-a3d8-245199db9864 |     24.924 |    -88.4487 | 2021-05-03 | No Violation(s) Found | in progress | Bar              | Face Covering Non-Compliance |
 ```
+- Download a graph analysis job using the following curl statement:
+```
+curl 10.244.13.216:5000/download/f5a33325-4b01-4278-a3d8-245199db9864 > output.png
+```
+```
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 19898    0 19898    0     0  1387k      0 --:--:-- --:--:-- --:--:-- 1387k
+```
+```
+ls
+```
+```
+output.png
+```
