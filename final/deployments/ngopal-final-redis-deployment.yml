@@ -24,6 +24,6 @@ spec:
           - name: redis-ngopal-final
             mountPath: "/data"
       volumes:
-      - name: redis-ngopal-hw7
+      - name: redis-ngopal-final
         persistentVolumeClaim:
           claimName: redis-ngopal-final
