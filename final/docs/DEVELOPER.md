@@ -67,7 +67,8 @@ ls
 ```
 output.png
 ```
-* see final/source/output.png for the image
+
+(see final/source/output.png for the image)
 
 - Complaints related to face masks are indicated by blue dots
 - Complaints related to social distancing are indicated by blue dots
