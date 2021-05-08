@@ -1,7 +1,7 @@
 ### DEPLOYMENT 
 - Build the Docker image and push it to the Docker Hub using the Makefile:
 ```
-$ make build-final
+$ make make-final
 ```
 
 - Navigate to final/deployments
